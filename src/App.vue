@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  /* global store, $this */
   name: 'App',
 }
 </script>
