@@ -5,14 +5,14 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 10,
+    numberOfPlayers: 1,
   },
   mutations: {
-    increment(state) {
-      state.count += 1
+    incrementNumberOfPlayers(state) {
+      state.numberOfPlayers += 1
     },
-    decrement(state) {
-      state.count -= 1
+    decrementNumberOfPlayers(state) {
+      state.numberOfPlayers -= 1
     },
   },
 })
