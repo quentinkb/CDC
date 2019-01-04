@@ -1,12 +1,12 @@
 <template>
   <div class="accueil">
     <h1>{{ msg }}</h1>
-    <button @click="increment()">Increment</button>
-    <h2>{{ count }}</h2>
+    <hello-world></hello-world>
   </div>
 </template>
 
 <script>
+import HelloWorld from '@/components/HelloWorld'
 /* global store */
 export default {
   name: 'Home',
@@ -15,16 +15,7 @@ export default {
       msg: 'Accueil',
     }
   },
-  methods: {
-    increment() {
-      this.$store.commit('increment')
-    },
-  },
-  computed: {
-    count() {
-      return this.$store.state.count
-    },
-  },
+  components: { HelloWorld },
 }
 </script>
 
