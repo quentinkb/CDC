@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     numberOfPlayers: 1,
+    players: [],
   },
   mutations: {
     incrementNumberOfPlayers(state) {
@@ -13,6 +14,9 @@ const store = new Vuex.Store({
     },
     decrementNumberOfPlayers(state) {
       state.numberOfPlayers -= 1
+    },
+    initPlayers(state, payload) {
+      state.players = payload
     },
   },
 })
