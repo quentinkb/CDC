@@ -7,6 +7,7 @@ const store = new Vuex.Store({
   state: {
     numberOfPlayers: 1,
     players: [],
+    currentPlayerIndex: 0,
   },
   mutations: {
     incrementNumberOfPlayers(state) {
@@ -17,6 +18,10 @@ const store = new Vuex.Store({
     },
     initPlayers(state, payload) {
       state.players = payload
+    },
+    incrementCurrentPlayerIndex(state) {
+      state.currentPlayerIndex =
+        (state.currentPlayerIndex + 1) % state.numberOfPlayers
     },
   },
 })

@@ -4,6 +4,7 @@
     <h2>{{ getNumberOfPlayers }}</h2>
     <button @click="incrementNumberOfPlayers()">add player</button>
     <button @click="decrementNumberOfPlayers()">remove player</button>
+    <button @click="commitNumberOfPlayers()">Valider nombre joueur</button>
   </div>
 </template>
 
@@ -14,12 +15,7 @@ export default {
   data() {
     return {
       msg: 'Indiquez le nombre de joueur',
-      title: 'Ma super application',
     }
-  },
-  created() {
-    const a = 5
-    this.title = a
   },
   computed: {
     getNumberOfPlayers() {
@@ -32,6 +28,9 @@ export default {
     },
     decrementNumberOfPlayers() {
       this.$store.commit('decrementNumberOfPlayers')
+    },
+    commitNumberOfPlayers() {
+      this.$emit('commit-number-of-players')
     },
   },
 }

@@ -1,8 +1,10 @@
 <template>
   <div class="accueil">
     <h1>{{ msg }}</h1>
-    <number-of-players v-show="computedDisplayNumberOfPlayers"></number-of-players>
-    <button @click="initPlayers()">Valider</button>
+    <number-of-players
+      v-on:commit-number-of-players="initPlayers()"
+      v-show="computedDisplayNumberOfPlayers"
+    ></number-of-players>
   </div>
 </template>
 
