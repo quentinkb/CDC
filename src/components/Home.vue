@@ -5,11 +5,13 @@
       v-on:commit-number-of-players="initPlayers()"
       v-show="computedDisplayNumberOfPlayers"
     ></number-of-players>
+    <game v-show="computedDisplayGame"></game>
   </div>
 </template>
 
 <script>
 import NumberOfPlayers from '@/components/NumberOfPlayers'
+import Game from '@/components/Game'
 
 export default {
   name: 'Home',
@@ -17,16 +19,23 @@ export default {
     return {
       msg: 'Accueil',
       displayNumberOfPlayers: true,
+      displayGame: false,
     }
   },
   computed: {
     computedDisplayNumberOfPlayers() {
       return this.displayNumberOfPlayers
     },
+    computedDisplayGame() {
+      return this.displayGame
+    },
   },
   methods: {
-    toggleNumberOfPlayersView(displayNumberOfPlayers) {
-      this.displayNumberOfPlayers = displayNumberOfPlayers
+    hideNumberOfPlayersView() {
+      this.displayNumberOfPlayers = false
+    },
+    showGame() {
+      this.displayGame = true
     },
     initPlayers() {
       const users = []
@@ -41,13 +50,17 @@ export default {
         })
       }
       this.commitNewPlayersToStore(users)
-      this.toggleNumberOfPlayersView(false)
+      this.initGame()
+    },
+    initGame() {
+      this.hideNumberOfPlayersView()
+      this.showGame()
     },
     commitNewPlayersToStore(users) {
       this.$store.commit('initPlayers', users)
     },
   },
-  components: { NumberOfPlayers },
+  components: { NumberOfPlayers, Game },
 }
 </script>
 
