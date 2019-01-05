@@ -2,7 +2,7 @@
   <div class="accueil">
     <h1>{{ msg }}</h1>
     <number-of-players v-show="computedDisplayNumberOfPlayers"></number-of-players>
-    <button @click="commitNumberOfPlayer()">Valider</button>
+    <button @click="initPlayers()">Valider</button>
   </div>
 </template>
 
@@ -26,17 +26,23 @@ export default {
     toggleNumberOfPlayersView(displayNumberOfPlayers) {
       this.displayNumberOfPlayers = displayNumberOfPlayers
     },
-    commitNumberOfPlayer() {
-      this.commitNewPlayersToStore()
+    initPlayers() {
+      const users = []
+      for (
+        let loopCounter = 0;
+        loopCounter < this.$store.state.numberOfPlayers;
+        loopCounter += 1
+      ) {
+        users.push({
+          id: loopCounter,
+          score: 0,
+        })
+      }
+      this.commitNewPlayersToStore(users)
       this.toggleNumberOfPlayersView(false)
     },
-    commitNewPlayersToStore() {
-      const payload = [
-        {
-          firstname: 'quentin',
-        },
-      ]
-      this.$store.commit('initPlayers', payload)
+    commitNewPlayersToStore(users) {
+      this.$store.commit('initPlayers', users)
     },
   },
   components: { NumberOfPlayers },
