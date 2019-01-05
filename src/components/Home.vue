@@ -9,7 +9,7 @@
 
 <script>
 import NumberOfPlayers from '@/components/NumberOfPlayers'
-/* global store */
+
 export default {
   name: 'Home',
   data() {
