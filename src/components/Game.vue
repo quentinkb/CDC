@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ getCurrentPlayerIndex }}</h1>Dé 1
+    <h1>{{ getCurrentPlayerIndex }}</h1>
     <button @click="updateDice(1)">1</button>
     <button @click="updateDice(2)">2</button>
     <button @click="updateDice(3)">3</button>
@@ -43,12 +43,12 @@ export default {
       this.indexOfCurrentDice = (this.indexOfCurrentDice + 1) % 3
     },
     compute() {
-      const computer = new Computer(
+      const { score, attribution } = new Computer(
         this.dicesValues[0],
         this.dicesValues[1],
         this.dicesValues[2],
-      )
-      this.updateScoreOfCurrentPlayer(computer.compute())
+      ).compute()
+      if (attribution === 'default') this.updateScoreOfCurrentPlayer(score)
       this.incrementCurrentPlayerIndex()
     },
     updateScoreOfCurrentPlayer(score) {

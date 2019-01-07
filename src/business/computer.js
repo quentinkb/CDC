@@ -6,15 +6,33 @@ export default class Computer {
   }
   compute() {
     if (this.checkCDC()) {
-      return this.scoreCDC()
+      return {
+        score: this.scoreCDC(),
+        attribution: 'default',
+      }
     }
     if (this.checkVelutte()) {
-      return this.scoreVelutte()
+      if (this.checkChouette()) {
+        return {
+          score: this.scoreVelutte(),
+          attribution: 'fastest',
+        }
+      }
+      return {
+        score: this.scoreVelutte(),
+        attribution: 'default',
+      }
     }
     if (this.checkChouette()) {
-      return this.scoreChouette()
+      return {
+        score: this.scoreChouette(),
+        attribution: 'default',
+      }
     }
-    return 0
+    return {
+      score: 0,
+      attribution: 'default',
+    }
   }
   checkChouette() {
     return this.val1 === this.val2
