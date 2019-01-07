@@ -23,6 +23,9 @@ const store = new Vuex.Store({
       state.currentPlayerIndex =
         (state.currentPlayerIndex + 1) % state.numberOfPlayers
     },
+    updateScoreOfCurrentPlayer(state, payload) {
+      state.players[state.currentPlayerIndex].score += payload
+    },
   },
 })
 

@@ -4,7 +4,7 @@
     <h2>{{ getNumberOfPlayers }}</h2>
     <button @click="incrementNumberOfPlayers()">add player</button>
     <button @click="decrementNumberOfPlayers()">remove player</button>
-    <button @click="commitNumberOfPlayers()">Valider nombre joueur</button>
+    <button @click="initPlayers()">Valider nombre joueur</button>
   </div>
 </template>
 
@@ -29,8 +29,23 @@ export default {
     decrementNumberOfPlayers() {
       this.$store.commit('decrementNumberOfPlayers')
     },
-    commitNumberOfPlayers() {
-      this.$emit('commit-number-of-players')
+    initPlayers() {
+      const users = []
+      for (
+        let loopCounter = 0;
+        loopCounter < this.$store.state.numberOfPlayers;
+        loopCounter += 1
+      ) {
+        users.push({
+          id: loopCounter,
+          score: 0,
+        })
+      }
+      this.commitNewPlayersToStore(users)
+      this.$emit('players-commited')
+    },
+    commitNewPlayersToStore(users) {
+      this.$store.commit('initPlayers', users)
     },
   },
 }
