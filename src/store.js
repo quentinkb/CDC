@@ -26,6 +26,9 @@ const store = new Vuex.Store({
     updateScoreOfCurrentPlayer(state, payload) {
       state.players[state.currentPlayerIndex].score += payload
     },
+    updateScoreOfSpecificUser(state, payload) {
+      state.players[payload.playerId].score += payload.score
+    },
   },
 })
 

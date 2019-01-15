@@ -12,7 +12,7 @@
     <h1>{{ getDicesValues[2] }}</h1>
     <h1>{{ getIndexOfCurrentDice }}</h1>
     <button @click="compute()">Prochain joueur</button>
-    <choose-player @player-choosen="playerChoose()" v-show="showChoosePlayer"/>
+    <choose-player @player-choosen="playerChoose($event)" v-show="showChoosePlayer"/>
   </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
       dicesValues: [0, 0, 0],
       indexOfCurrentDice: 0,
       showPlayer: false,
+      currentScore: 0,
     }
   },
   computed: {
@@ -54,9 +55,11 @@ export default {
         this.dicesValues[1],
         this.dicesValues[2],
       ).compute()
-      if (attribution === 'default') this.updateScoreOfCurrentPlayer(score)
-      else this.showPlayer = true
-      this.incrementCurrentPlayerIndex()
+      this.currentScore = score
+      if (attribution === 'default') {
+        this.updateScoreOfCurrentPlayer(score)
+        this.incrementCurrentPlayerIndex()
+      } else this.showPlayer = true
     },
     updateScoreOfCurrentPlayer(score) {
       this.$store.commit('updateScoreOfCurrentPlayer', score)
@@ -64,7 +67,17 @@ export default {
     incrementCurrentPlayerIndex() {
       this.$store.commit('incrementCurrentPlayerIndex')
     },
-    playerChoose() {},
+    playerChoose(playerId) {
+      this.updateScoreOfSpecificUser(playerId)
+    },
+    updateScoreOfSpecificUser(playerId) {
+      this.$store.commit('updateScoreOfSpecificUser', {
+        playerId,
+        score: this.currentScore,
+      })
+      this.incrementCurrentPlayerIndex()
+      this.showPlayer = false
+    },
   },
   components: { ChoosePlayer },
 }
