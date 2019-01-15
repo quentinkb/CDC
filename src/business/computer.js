@@ -5,6 +5,12 @@ export default class Computer {
     this.val3 = parseInt(val3, 10)
   }
   compute() {
+    if (this.checkSuite()) {
+      return {
+        score: 0,
+        attribution: 'default',
+      }
+    }
     if (this.checkCDC()) {
       return {
         score: this.scoreCDC(),
@@ -42,6 +48,10 @@ export default class Computer {
   }
   checkCDC() {
     return this.val1 === this.val2 && this.val2 === this.val3
+  }
+  checkSuite() {
+    const dices = [this.val1, this.val2, this.val3].sort((a, b) => a - b)
+    return dices[2] - dices[1] === 1 && dices[1] - dices[0] === 1
   }
   scoreChouette() {
     return this.val1 * this.val1
