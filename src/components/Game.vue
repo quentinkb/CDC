@@ -14,12 +14,14 @@
     <button @click="compute()">Prochain joueur</button>
     <choose-player @player-choosen="playerChoose($event)" v-show="showChoosePlayer"/>
     <bevue/>
+    <sirot v-show="showChooseSirot" @sirot-ended="commitSirot()"/>
   </div>
 </template>
 
 <script>
 import ChoosePlayer from '@/components/ChoosePlayer'
 import Bevue from '@/components/Bevue'
+import Sirot from '@/components/Sirot'
 import Computer from './../business/computer'
 
 export default {
@@ -29,6 +31,7 @@ export default {
       dicesValues: [0, 0, 0],
       indexOfCurrentDice: 0,
       showPlayer: false,
+      showSirot: false,
       currentScore: 0,
     }
   },
@@ -45,6 +48,9 @@ export default {
     showChoosePlayer() {
       return this.showPlayer
     },
+    showChooseSirot() {
+      return this.showSirot
+    },
   },
   methods: {
     updateDice(value) {
@@ -52,15 +58,20 @@ export default {
       this.indexOfCurrentDice = (this.indexOfCurrentDice + 1) % 3
     },
     compute() {
-      const { score, attribution } = new Computer(
+      const result = new Computer(
         this.dicesValues[0],
         this.dicesValues[1],
         this.dicesValues[2],
       ).compute()
+      this.processGame(result)
+    },
+    processGame({ score, attribution }) {
       this.currentScore = score
       if (attribution === 'default') {
         this.updateScoreOfCurrentPlayer(score)
         this.incrementCurrentPlayerIndex()
+      } else if (attribution === 'sirot') {
+        this.showSirot = true
       } else this.showPlayer = true
     },
     updateScoreOfCurrentPlayer(score) {
@@ -80,7 +91,11 @@ export default {
       this.incrementCurrentPlayerIndex()
       this.showPlayer = false
     },
+    commitSirot() {
+      this.incrementCurrentPlayerIndex()
+      this.showSirot = false
+    },
   },
-  components: { ChoosePlayer, Bevue },
+  components: { ChoosePlayer, Bevue, Sirot },
 }
 </script>

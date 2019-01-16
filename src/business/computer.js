@@ -32,7 +32,7 @@ export default class Computer {
     if (this.checkChouette()) {
       return {
         score: this.scoreChouette(),
-        attribution: 'default',
+        attribution: 'sirot',
       }
     }
     return {
