@@ -7,8 +7,8 @@ export default class Computer {
   compute() {
     if (this.checkSuite()) {
       return {
-        score: 0,
-        attribution: 'default',
+        score: -10,
+        attribution: 'slowest',
       }
     }
     if (this.checkCDC()) {

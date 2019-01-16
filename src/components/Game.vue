@@ -13,11 +13,13 @@
     <h1>{{ getIndexOfCurrentDice }}</h1>
     <button @click="compute()">Prochain joueur</button>
     <choose-player @player-choosen="playerChoose($event)" v-show="showChoosePlayer"/>
+    <bevue/>
   </div>
 </template>
 
 <script>
 import ChoosePlayer from '@/components/ChoosePlayer'
+import Bevue from '@/components/Bevue'
 import Computer from './../business/computer'
 
 export default {
@@ -79,6 +81,6 @@ export default {
       this.showPlayer = false
     },
   },
-  components: { ChoosePlayer },
+  components: { ChoosePlayer, Bevue },
 }
 </script>
